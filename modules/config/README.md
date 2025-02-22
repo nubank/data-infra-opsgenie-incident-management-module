@@ -149,6 +149,14 @@ users:
 ```
 
 
+### `existing_escalations.yaml`
+
+```yaml
+existing_escalations:
+- acme.default
+```
+
+
 ### `existing_schedules.yaml`
 
 ```yaml

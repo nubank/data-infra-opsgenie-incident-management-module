@@ -27,6 +27,13 @@ output "escalations" {
   description = "Escalations"
 }
 
+output "existing_escalations" {
+  value = {
+    for escalation in data.opsgenie_escalation.this : escalation.id => escalation.name
+  }
+  description = "Escalations that already exist in Opsgenie"
+}
+
 output "integration_actions" {
   value = [
     for integration_action in opsgenie_integration_action.this : integration_action.id
@@ -67,6 +74,13 @@ output "teams" {
     for team in opsgenie_team.this : team.id => team.name
   }
   description = "Teams"
+}
+
+output "existing_teams" {
+  value = {
+    for team in data.opsgenie_team.this : team.id => team.name
+  }
+  description = "Users that already exist in Opsgenie"
 }
 
 output "users" {
