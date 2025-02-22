@@ -37,7 +37,13 @@ resource "opsgenie_team_routing_rule" "this" {
 
     content {
       type = notify.value.type
-      id   = opsgenie_escalation.this[notify.value.name].id
+      id = try(notify.value.id, null) != null ? notify.value.id : (
+        notify.value.type == "schedule" ? try(opsgenie_schedule.this[notify.value.name].id, data.opsgenie_schedule.this[notify.value.name].id) : (
+          notify.value.type == "escalation" ? try(opsgenie_escalation.this[notify.value.name].id, data.opsgenie_escalation.this[notify.value.name].id) : (
+            null
+          )
+        )
+      )
     }
   }
 }
